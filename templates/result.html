@@ -69,31 +69,63 @@
 
             <h4>Rekomendasi Belajar</h4>
 
-            {% if dominant == 'visual' %}
+            <div class="mt-5">
 
-                <ul>
-                    <li>Gunakan mind mapping</li>
-                    <li>Gunakan video pembelajaran</li>
-                    <li>Gunakan warna pada catatan</li>
-                </ul>
+                <div class="card shadow p-4 mb-4">
 
-            {% elif dominant == 'auditory' %}
+                    <h4 class="mb-3">
+                        Rekomendasi untuk Siswa
+                    </h4>
 
-                <ul>
-                    <li>Belajar dengan diskusi</li>
-                    <li>Dengarkan penjelasan/audio</li>
-                    <li>Belajar bersama teman</li>
-                </ul>
+                    <ul>
 
-            {% else %}
+                        {% for item in recommendations.student %}
 
-                <ul>
-                    <li>Lakukan praktik langsung</li>
-                    <li>Gunakan simulasi</li>
-                    <li>Belajar sambil aktivitas</li>
-                </ul>
+                            <li>{{ item }}</li>
 
-            {% endif %}
+                        {% endfor %}
+
+                    </ul>
+
+                </div>
+
+                <div class="card shadow p-4 mb-4">
+
+                    <h4 class="mb-3">
+                        Rekomendasi untuk Guru
+                    </h4>
+
+                    <ul>
+
+                        {% for item in recommendations.teacher %}
+
+                            <li>{{ item }}</li>
+
+                        {% endfor %}
+
+                    </ul>
+
+                </div>
+
+                <div class="card shadow p-4">
+
+                    <h4 class="mb-3">
+                        Rekomendasi untuk Orang Tua
+                    </h4>
+
+                    <ul>
+
+                        {% for item in recommendations.parent %}
+
+                            <li>{{ item }}</li>
+
+                        {% endfor %}
+
+                    </ul>
+
+                </div>
+
+            </div>
 
         </div>
 

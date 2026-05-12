@@ -4,6 +4,7 @@ from questions import questions
 from rules import calculate_result
 
 from models import db, Result
+from recommendations import recommendations
 
 import os
 
@@ -77,9 +78,12 @@ def result():
     db.session.commit()
 
     return render_template(
+
         'result.html',
         dominant=dominant,
-        percentages=percentages
+        percentages=percentages,
+        recommendations=recommendations[dominant]
+
     )
 
 

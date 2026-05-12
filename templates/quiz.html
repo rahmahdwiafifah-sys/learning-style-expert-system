@@ -1,55 +1,195 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Quiz</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-    <h1>Quiz Gaya Belajar</h1>
+{% block content %}
 
-    <form action="/result" method="POST">
+<div class="quiz-card shadow p-5">
+
+    <div class="d-flex justify-content-between mb-3">
+
+        <h5>
+            Quiz Gaya Belajar
+        </h5>
+
+        <h5 id="questionCounter">
+            1/{{ questions|length }}
+        </h5>
+
+    </div>
+
+    <div class="progress mb-4">
+
+        <div
+            id="progressBar"
+            class="progress-bar"
+            style="width: 0%"
+        ></div>
+
+    </div>
+
+    <form
+        action="/result"
+        method="POST"
+        id="quizForm"
+    >
+
+        <input
+            type="hidden"
+            name="name"
+            value="Siswa"
+        >
+
+        <input
+            type="hidden"
+            name="student_class"
+            value="8A"
+        >
+
+        <input
+            type="hidden"
+            name="gender"
+            value="Laki-laki"
+        >
 
         {% for q in questions %}
 
-            <p>{{ q.text }}</p>
+        <div
+            class="question-slide"
+            {% if loop.index != 1 %}
+                style="display:none;"
+            {% endif %}
+        >
 
-            <select name="{{ q.id }}" required>
+            <div
+                class="question-box d-flex align-items-center justify-content-center text-center"
+            >
 
-                <option value="">
-                    -- Pilih Jawaban --
-                </option>
+                <h3 class="fw-bold">
 
-                <option value="1">
+                    {{ q.text }}
+
+                </h3>
+
+            </div>
+
+            <div class="mt-5">
+
+                <button
+                    type="button"
+                    class="answer-btn btn btn-danger"
+                    onclick="selectAnswer('{{ q.id }}', 1)"
+                >
+
                     Sangat Tidak Sesuai
-                </option>
 
-                <option value="2">
+                </button>
+
+                <button
+                    type="button"
+                    class="answer-btn btn btn-warning"
+                    onclick="selectAnswer('{{ q.id }}', 2)"
+                >
+
                     Tidak Sesuai
-                </option>
 
-                <option value="3">
+                </button>
+
+                <button
+                    type="button"
+                    class="answer-btn btn btn-info"
+                    onclick="selectAnswer('{{ q.id }}', 3)"
+                >
+
                     Cukup Sesuai
-                </option>
 
-                <option value="4">
+                </button>
+
+                <button
+                    type="button"
+                    class="answer-btn btn btn-success"
+                    onclick="selectAnswer('{{ q.id }}', 4)"
+                >
+
                     Sesuai
-                </option>
 
-                <option value="5">
+                </button>
+
+                <button
+                    type="button"
+                    class="answer-btn btn btn-primary"
+                    onclick="selectAnswer('{{ q.id }}', 5)"
+                >
+
                     Sangat Sesuai
-                </option>
 
-            </select>
+                </button>
 
-            <hr>
+            </div>
+
+            <input
+                type="hidden"
+                name="{{ q.id }}"
+                id="answer{{ q.id }}"
+            >
+
+        </div>
 
         {% endfor %}
 
-        <button type="submit">
-            Lihat Hasil
-        </button>
-
     </form>
 
-</body>
-</html>
+</div>
+
+<script>
+
+const slides =
+document.querySelectorAll('.question-slide');
+
+let current = 0;
+
+function updateProgress() {
+
+    const progress =
+    ((current + 1) / slides.length) * 100;
+
+    document.getElementById(
+        'progressBar'
+    ).style.width = progress + '%';
+
+    document.getElementById(
+        'questionCounter'
+    ).innerText =
+    `${current + 1}/${slides.length}`;
+
+}
+
+updateProgress();
+
+function selectAnswer(questionId, value) {
+
+    document.getElementById(
+        'answer' + questionId
+    ).value = value;
+
+    slides[current].style.display = 'none';
+
+    current++;
+
+    if(current < slides.length) {
+
+        slides[current].style.display = 'block';
+
+        updateProgress();
+
+    } else {
+
+        document.getElementById(
+            'quizForm'
+        ).submit();
+
+    }
+
+}
+
+</script>
+
+{% endblock %}
