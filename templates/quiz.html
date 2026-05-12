@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quiz</title>
+</head>
+<body>
+
+    <h1>Quiz Gaya Belajar</h1>
+
+    <form action="/result" method="POST">
+
+        {% for q in questions %}
+
+            <p>{{ q.text }}</p>
+
+            <select name="{{ q.id }}" required>
+
+                <option value="">
+                    -- Pilih Jawaban --
+                </option>
+
+                <option value="1">
+                    Sangat Tidak Sesuai
+                </option>
+
+                <option value="2">
+                    Tidak Sesuai
+                </option>
+
+                <option value="3">
+                    Cukup Sesuai
+                </option>
+
+                <option value="4">
+                    Sesuai
+                </option>
+
+                <option value="5">
+                    Sangat Sesuai
+                </option>
+
+            </select>
+
+            <hr>
+
+        {% endfor %}
+
+        <button type="submit">
+            Lihat Hasil
+        </button>
+
+    </form>
+
+</body>
+</html>
