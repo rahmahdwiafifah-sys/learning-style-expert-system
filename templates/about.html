@@ -1,0 +1,179 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="quiz-card shadow p-5 mb-5 text-center">
+
+    <h1 class="fw-bold mb-4">
+
+        Tentang Kami
+
+    </h1>
+
+    <p class="lead text-muted">
+
+        LearnStyle merupakan sistem pakar
+        identifikasi gaya belajar siswa
+        berbasis web yang membantu siswa,
+        guru, dan orang tua memahami
+        cara belajar terbaik.
+
+    </p>
+
+</div>
+
+<div class="row">
+
+    <!-- ANGGOTA 1 -->
+    <div class="col-md-4 mb-4">
+
+        <div class="card border-0 shadow text-center p-4 h-100">
+
+            <img
+                src="{{ url_for('static', filename='img/team/team1.jpg') }}"
+                class="rounded-circle mx-auto mb-3"
+                width="150"
+                height="150"
+                style="object-fit:cover;"
+            >
+
+            <h5 class="fw-bold">
+                Rahmah Dwi Afifah
+            </h5>
+
+            <p class="text-muted">
+                Fullstack Developer
+            </p>
+
+        </div>
+
+    </div>
+
+    <!-- ANGGOTA 2 -->
+    <div class="col-md-4 mb-4">
+
+        <div class="card border-0 shadow text-center p-4 h-100">
+
+            <img
+                src="{{ url_for('static', filename='img/team/team2.jpg') }}"
+                class="rounded-circle mx-auto mb-3"
+                width="150"
+                height="150"
+                style="object-fit:cover;"
+            >
+
+            <h5 class="fw-bold">
+                Raisa Rayhani
+            </h5>
+
+            <p class="text-muted">
+                Designer
+            </p>
+
+        </div>
+
+    </div>
+
+    <!-- ANGGOTA 3 -->
+    <div class="col-md-4 mb-4">
+
+        <div class="card border-0 shadow text-center p-4 h-100">
+
+            <img
+                src="{{ url_for('static', filename='img/team/team3.jpg') }}"
+                class="rounded-circle mx-auto mb-3"
+                width="150"
+                height="150"
+                style="object-fit:cover;"
+            >
+
+            <h5 class="fw-bold">
+                Ridho Mulyawan
+            </h5>
+
+            <p class="text-muted">
+                Project Manager
+            </p>
+
+        </div>
+
+    </div>
+
+    <!-- ANGGOTA 4 -->
+    <div class="col-md-4 mb-4">
+
+        <div class="card border-0 shadow text-center p-4 h-100">
+
+            <img
+                src="{{ url_for('static', filename='img/team/team4.jpg') }}"
+                class="rounded-circle mx-auto mb-3"
+                width="150"
+                height="150"
+                style="object-fit:cover;"
+            >
+
+            <h5 class="fw-bold">
+                Thariq Aziz
+            </h5>
+
+            <p class="text-muted">
+                System Analyst
+            </p>
+
+        </div>
+
+    </div>
+
+    <!-- ANGGOTA 5 -->
+    <div class="col-md-4 mb-4">
+
+        <div class="card border-0 shadow text-center p-4 h-100">
+
+            <img
+                src="{{ url_for('static', filename='img/team/team5.jpg') }}"
+                class="rounded-circle mx-auto mb-3"
+                width="150"
+                height="150"
+                style="object-fit:cover;"
+            >
+
+            <h5 class="fw-bold">
+                Dr. M. Fakhrurrozi, M. Psi, Psikolog 
+            </h5>
+
+            <p class="text-muted">
+                Pakar-Dosen Psikologi
+            </p>
+
+        </div>
+
+    </div>
+
+    <!-- ANGGOTA 6 -->
+    <div class="col-md-4 mb-4">
+
+        <div class="card border-0 shadow text-center p-4 h-100">
+
+            <img
+                src="{{ url_for('static', filename='img/team/team6.jpg') }}"
+                class="rounded-circle mx-auto mb-3"
+                width="150"
+                height="150"
+                style="object-fit:cover;"
+            >
+
+            <h5 class="fw-bold">
+                Nina Mailiza M.Pd
+            </h5>
+
+            <p class="text-muted">
+                Pakar-Guru Bimbingan Konseling
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

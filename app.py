@@ -98,6 +98,10 @@ def dashboard():
         data=data
     )
 
+@app.route('/about')
+def about():
+
+    return render_template('about.html')
 
 # RUN APP
 if __name__ == '__main__':
