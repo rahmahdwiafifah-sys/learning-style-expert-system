@@ -1,30 +1,39 @@
-def calculate_result(questions, form_data):
+def calculate_result(questions, answers):
 
     scores = {
+
         "visual": 0,
+
         "auditory": 0,
+
         "kinesthetic": 0
+
     }
 
     for q in questions:
 
-        answer = int(form_data.get(str(q["id"]), 0))
+        answer = answers.get(q['id'])
 
-        final_score = answer * q["weight"]
+        if answer:
 
-        scores[q["type"]] += final_score
+            scores[answer] += 1
 
     total = sum(scores.values())
 
-    percentages = {}
+    percentages = {
 
-    for key, value in scores.items():
+        key: round(
+            (value / total) * 100,
+            2
+        )
 
-        if total == 0:
-            percentages[key] = 0
-        else:
-            percentages[key] = round((value / total) * 100, 2)
+        for key, value in scores.items()
 
-    dominant = max(percentages, key=percentages.get)
+    }
+
+    dominant = max(
+        scores,
+        key=scores.get
+    )
 
     return dominant, percentages

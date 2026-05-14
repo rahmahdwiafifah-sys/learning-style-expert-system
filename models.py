@@ -10,6 +10,12 @@ class Result(db.Model):
         primary_key=True
     )
 
+    name = db.Column(db.String(100))
+
+    student_class = db.Column(db.String(50))
+
+    gender = db.Column(db.String(20))
+
     visual = db.Column(db.Float)
 
     auditory = db.Column(db.Float)

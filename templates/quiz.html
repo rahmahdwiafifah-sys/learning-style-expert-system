@@ -2,142 +2,172 @@
 
 {% block content %}
 
-<div class="quiz-card shadow p-5">
+<div class="row justify-content-center">
 
-    <div class="d-flex justify-content-between mb-3">
+    <div class="col-lg-8">
 
-        <h5>
-            Quiz Gaya Belajar
-        </h5>
+        <div class="quiz-card shadow p-5">
 
-        <h5 id="questionCounter">
-            1/{{ questions|length }}
-        </h5>
+            <!-- HEADER -->
 
-    </div>
+            <div class="d-flex justify-content-between mb-3">
 
-    <div class="progress mb-4">
+                <h5 class="fw-bold">
 
-        <div
-            id="progressBar"
-            class="progress-bar"
-            style="width: 0%"
-        ></div>
+                    Tes Gaya Belajar
 
-    </div>
+                </h5>
 
-    <form
-        action="/result"
-        method="POST"
-        id="quizForm"
-    >
+                <h5 id="questionCounter">
 
-        <input
-            type="hidden"
-            name="name"
-            value="Siswa"
-        >
+                    1/{{ questions|length }}
 
-        <input
-            type="hidden"
-            name="student_class"
-            value="8A"
-        >
-
-        <input
-            type="hidden"
-            name="gender"
-            value="Laki-laki"
-        >
-
-        {% for q in questions %}
-
-        <div
-            class="question-slide"
-            {% if loop.index != 1 %}
-                style="display:none;"
-            {% endif %}
-        >
-
-            <div
-                class="question-box d-flex align-items-center justify-content-center text-center"
-            >
-
-                <h3 class="fw-bold">
-
-                    {{ q.text }}
-
-                </h3>
+                </h5>
 
             </div>
 
-            <div class="mt-5">
+            <!-- PROGRESS BAR -->
 
-                <button
-                    type="button"
-                    class="answer-btn btn btn-danger"
-                    onclick="selectAnswer('{{ q.id }}', 1)"
-                >
+            <div class="progress mb-5">
 
-                    Sangat Tidak Sesuai
-
-                </button>
-
-                <button
-                    type="button"
-                    class="answer-btn btn btn-warning"
-                    onclick="selectAnswer('{{ q.id }}', 2)"
-                >
-
-                    Tidak Sesuai
-
-                </button>
-
-                <button
-                    type="button"
-                    class="answer-btn btn btn-info"
-                    onclick="selectAnswer('{{ q.id }}', 3)"
-                >
-
-                    Cukup Sesuai
-
-                </button>
-
-                <button
-                    type="button"
-                    class="answer-btn btn btn-success"
-                    onclick="selectAnswer('{{ q.id }}', 4)"
-                >
-
-                    Sesuai
-
-                </button>
-
-                <button
-                    type="button"
-                    class="answer-btn btn btn-primary"
-                    onclick="selectAnswer('{{ q.id }}', 5)"
-                >
-
-                    Sangat Sesuai
-
-                </button>
+                <div
+                    id="progressBar"
+                    class="progress-bar bg-primary"
+                    style="width:0%"
+                ></div>
 
             </div>
 
-            <input
-                type="hidden"
-                name="{{ q.id }}"
-                id="answer{{ q.id }}"
+            <!-- FORM -->
+
+            <form
+                action="/result"
+                method="POST"
+                id="quizForm"
             >
+
+                {% for q in questions %}
+
+                <div
+
+                    class="question-slide"
+
+                    {% if loop.index != 1 %}
+                        style="display:none;"
+                    {% endif %}
+                >
+
+                    <!-- PERTANYAAN -->
+
+                    <div class="text-center mb-5">
+
+                        <h2 class="fw-bold">
+
+                            {{ q.question }}
+
+                        </h2>
+
+                    </div>
+
+                    <!-- OPTIONS -->
+
+                    <div class="d-grid gap-4">
+
+                        {% for option in q.options %}
+
+                        <button
+
+                            type="button"
+
+                            class="btn btn-light shadow-lg p-4 text-start answer-card"
+
+                            onclick="selectAnswer(
+                                '{{ q.id }}',
+                                '{{ option.type }}'
+                            )"
+                        >
+
+                            <h5 class="mb-0">
+
+                                {{ option.text }}
+
+                            </h5>
+
+                        </button>
+
+                        {% endfor %}
+
+                    </div>
+
+                    <!-- HIDDEN INPUT -->
+
+                    <input
+                        type="hidden"
+                        name="{{ q.id }}"
+                        id="answer{{ q.id }}"
+                    >
+
+                </div>
+
+                {% endfor %}
+
+            </form>
 
         </div>
 
-        {% endfor %}
-
-    </form>
+    </div>
 
 </div>
+
+<style>
+
+.answer-card {
+
+    border-radius: 20px;
+
+    transition: 0.2s;
+
+    border: none;
+
+    background: white;
+
+}
+
+.answer-card:hover {
+
+    transform: translateY(-3px);
+
+    background: #eef2ff;
+
+}
+
+.question-slide {
+
+    animation: fadeIn 0.4s ease;
+
+}
+
+@keyframes fadeIn {
+
+    from {
+
+        opacity: 0;
+
+        transform: translateY(10px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform: translateY(0);
+
+    }
+
+}
+
+</style>
 
 <script>
 
@@ -180,7 +210,9 @@ function selectAnswer(questionId, value) {
 
         updateProgress();
 
-    } else {
+    }
+
+    else {
 
         document.getElementById(
             'quizForm'

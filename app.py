@@ -1,4 +1,10 @@
-from flask import Flask, render_template, request
+from flask import (
+    Flask,
+    render_template,
+    request,
+    redirect,
+    session
+)
 
 from questions import questions
 from rules import calculate_result
@@ -10,6 +16,8 @@ import os
 
 
 app = Flask(__name__)
+
+app.secret_key = 'learnstyle-secret-key'
 
 
 # CONFIG DATABASE POSTGRESQL
@@ -43,6 +51,21 @@ def index():
 
     return render_template('index.html')
 
+# HALAMAN START
+@app.route('/start', methods=['GET', 'POST'])
+def start():
+
+    if request.method == 'POST':
+
+        session['name'] = request.form['name']
+
+        session['student_class'] = request.form['student_class']
+
+        session['gender'] = request.form['gender']
+
+        return redirect('/quiz')
+
+    return render_template('start.html')
 
 # HALAMAN QUIZ
 @app.route('/quiz')
@@ -65,7 +88,9 @@ def result():
 
     # SIMPAN KE DATABASE
     new_result = Result(
-
+        name=session['name'],
+        student_class=session['student_class'],
+        gender=session['gender'],
         visual=percentages['visual'],
         auditory=percentages['auditory'],
         kinesthetic=percentages['kinesthetic'],
@@ -80,9 +105,18 @@ def result():
     return render_template(
 
         'result.html',
+
         dominant=dominant,
+
         percentages=percentages,
-        recommendations=recommendations[dominant]
+
+        recommendations=recommendations[dominant],
+
+        name=session['name'],
+
+        student_class=session['student_class'],
+
+        gender=session['gender']
 
     )
 
