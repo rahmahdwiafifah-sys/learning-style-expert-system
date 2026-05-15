@@ -1,0 +1,420 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<section class="section-spacing">
+
+    <!-- HEADER -->
+
+    <div class="mb-5">
+
+        <h1
+            class="fw-bold"
+            style="color:#576A8F;"
+        >
+
+            Dashboard Analytics
+
+        </h1>
+
+        <p class="text-muted">
+
+            Visualisasi data hasil assessment siswa.
+
+        </p>
+
+    </div>
+
+    <!-- TOP STATS -->
+
+    <div class="row g-4 mb-5">
+
+        <div class="col-lg-3 col-md-6">
+
+            <div class="analytics-card">
+
+                <h2 style="color:#576A8F;">
+
+                    {{ total_students }}
+
+                </h2>
+
+                <p class="text-muted mb-0">
+
+                    Total Siswa
+
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+
+            <div class="analytics-card">
+
+                <h2 style="color:#576A8F;">
+
+                    {{ visual_count }}
+
+                </h2>
+
+                <p class="text-muted mb-0">
+
+                    Dominan Visual
+
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+
+            <div class="analytics-card">
+
+                <h2 style="color:#FF7444;">
+
+                    {{ auditory_count }}
+
+                </h2>
+
+                <p class="text-muted mb-0">
+
+                    Dominan Auditori
+
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+
+            <div class="analytics-card">
+
+                <h2 style="color:#28a745;">
+
+                    {{ kinesthetic_count }}
+
+                </h2>
+
+                <p class="text-muted mb-0">
+
+                    Dominan Kinestetik
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- CHARTS -->
+
+    <div class="row g-4 mb-5">
+
+        <!-- PIE -->
+
+        <div class="col-lg-6">
+
+            <div class="analytics-card">
+
+                <h4 class="fw-bold mb-4">
+
+                    Dominasi Gaya Belajar
+
+                </h4>
+
+                <canvas id="dominantChart"></canvas>
+
+            </div>
+
+        </div>
+
+        <!-- GENDER -->
+
+        <div class="col-lg-6">
+
+            <div class="analytics-card">
+
+                <h4 class="fw-bold mb-4">
+
+                    Distribusi Gender
+
+                </h4>
+
+                <canvas id="genderChart"></canvas>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- INSIGHT -->
+
+    <div
+        class="analytics-card mb-5"
+        style="background:#FFF8DE;"
+    >
+
+        <h4
+            class="fw-bold mb-3"
+            style="color:#576A8F;"
+        >
+
+            Insight Otomatis
+
+        </h4>
+
+        <p
+            class="mb-0"
+            style="line-height:1.9;"
+        >
+
+             {{ insight }}
+
+        </p>
+
+    </div>
+
+    <!-- TABLE -->
+
+    <div class="analytics-card">
+
+        <div
+            class="d-flex justify-content-between
+                   align-items-center mb-4"
+        >
+
+            <h4 class="fw-bold mb-0">
+
+                Data Siswa
+
+            </h4>
+
+            <input
+                type="text"
+                id="searchInput"
+                class="form-control"
+                placeholder="Cari siswa..."
+                style="max-width:300px;"
+            >
+
+        </div>
+
+        <div class="table-responsive">
+
+            <table
+                class="table align-middle"
+                id="studentTable"
+            >
+
+                <thead>
+
+                    <tr>
+
+                        <th>Nama</th>
+
+                        <th>Kelas</th>
+
+                        <th>Gender</th>
+
+                        <th>Dominan</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for r in results %}
+
+                    <tr>
+
+                        <td>{{ r.name }}</td>
+
+                        <td>{{ r.student_class }}</td>
+
+                        <td>{{ r.gender }}</td>
+
+                        <td>
+
+                            <span
+
+                                class="
+                                badge
+                                rounded-pill
+                                px-3
+                                py-2
+
+                                {% if r.dominant == 'visual' %}
+
+                                    bg-visual
+
+                                {% elif r.dominant == 'auditory' %}
+
+                                    bg-auditory
+
+                                {% else %}
+
+                                    bg-kinesthetic
+
+                                {% endif %}
+                                "
+                            >
+
+                                {{ r.dominant }}
+
+                            </span>
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- CHART SCRIPT -->
+
+<script>
+
+new Chart(
+
+    document.getElementById('dominantChart'),
+
+    {
+
+        type: 'doughnut',
+
+        data: {
+
+            labels: [
+
+                'Visual',
+
+                'Auditori',
+
+                'Kinestetik'
+
+            ],
+
+            datasets: [{
+
+                data: [
+
+                    Number('{{ visual_count }}'),
+
+                    Number('{{ auditory_count }}'),
+
+                    Number('{{ kinesthetic_count }}')
+
+                ],
+
+                backgroundColor: [
+
+                    '#576A8F',
+
+                    '#FF7444',
+
+                    '#28a745'
+
+                ]
+
+            }]
+
+        }
+
+    }
+
+);
+
+new Chart(
+
+    document.getElementById('genderChart'),
+
+    {
+
+        type: 'bar',
+
+        data: {
+
+            labels: [
+
+                'Laki-laki',
+
+                'Perempuan'
+
+            ],
+
+            datasets: [{
+
+                label: 'Jumlah',
+
+                data: [
+
+                    Number('{{ male_count }}'),
+
+                    Number('{{ female_count }}')
+
+                ],
+
+                backgroundColor: [
+
+                    '#576A8F',
+
+                    '#FF7444'
+
+                ]
+
+            }]
+
+        }
+
+    }
+
+);
+
+// SEARCH
+
+document
+.getElementById('searchInput')
+
+.addEventListener('keyup', function() {
+
+    const value =
+    this.value.toLowerCase();
+
+    const rows =
+    document.querySelectorAll(
+        '#studentTable tbody tr'
+    );
+
+    rows.forEach(row => {
+
+        row.style.display =
+        row.innerText.toLowerCase()
+        .includes(value)
+
+        ? ''
+
+        : 'none';
+
+    });
+
+});
+
+</script>
+
+{% endblock %}

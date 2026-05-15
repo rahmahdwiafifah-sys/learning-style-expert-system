@@ -1,0 +1,285 @@
+<section
+    id="start-test"
+    class="section-spacing"
+>
+
+    <div
+        class="quiz-card p-5 position-relative overflow-hidden"
+        style="background:#FFF8DE;"
+    >
+
+        <!-- DECORATION -->
+
+        <div
+            style="
+                position:absolute;
+                right:30px;
+                top:20px;
+                font-size:120px;
+                color:#f3e8b2;
+                font-weight:800;
+                z-index:0;
+            "
+        >
+
+            02
+
+        </div>
+
+        <div class="row align-items-center">
+
+            <!-- LEFT -->
+
+            <div class="col-lg-5">
+
+                <div
+                    class="d-inline-block px-4 py-2 rounded-pill mb-4"
+                    style="
+                        background:white;
+                        color:#576A8F;
+                        font-weight:600;
+                    "
+                >
+
+                    Mulai Assessment
+
+                </div>
+
+                <h2
+                    class="fw-bold mb-4"
+                    style="
+                        color:#576A8F;
+                        font-size:3rem;
+                    "
+                >
+
+                    Siap Mengenali
+                    Gaya Belajarmu?
+
+                </h2>
+
+                <p
+                    class="text-muted"
+                    style="
+                        line-height:1.9;
+                        font-size:1.05rem;
+                    "
+                >
+
+                    Tes ini membantu kamu
+                    memahami cara belajar
+                    yang paling nyaman dan efektif
+                    berdasarkan kebiasaan belajar sehari-hari.
+
+                </p>
+
+                <!-- MINI INFO -->
+
+                <div class="row mt-5">
+
+                    <div class="col-6">
+
+                        <div class="analytics-card text-center">
+
+                            <h3 style="color:#576A8F;">
+
+                                30
+
+                            </h3>
+
+                            <p class="mb-0 text-muted">
+
+                                Pertanyaan
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-6">
+
+                        <div class="analytics-card text-center">
+
+                            <h3 style="color:#FF7444;">
+
+                                5-10
+
+                            </h3>
+
+                            <p class="mb-0 text-muted">
+
+                                Menit
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- RIGHT -->
+
+            <div class="col-lg-7">
+
+                <div class="analytics-card">
+
+                    <h4
+                        class="fw-bold mb-4"
+                        style="color:#576A8F;"
+                    >
+
+                        Isi Identitas
+
+                    </h4>
+
+                    <form id="startForm">
+
+                        <div class="mb-4">
+
+                            <label class="form-label fw-semibold">
+
+                                Nama Lengkap
+
+                            </label>
+
+                            <input
+                                type="text"
+                                name="name"
+                                class="form-control p-3"
+                                placeholder="Masukkan nama lengkap"
+                                required
+                            >
+
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-md-6">
+
+                                <div class="mb-4">
+
+                                    <label class="form-label fw-semibold">
+
+                                        Kelas
+
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        name="student_class"
+                                        class="form-control p-3"
+                                        placeholder="Contoh: 8A"
+                                        required
+                                    >
+
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-6">
+
+                                <div class="mb-4">
+
+                                    <label class="form-label fw-semibold">
+
+                                        Gender
+
+                                    </label>
+
+                                    <select
+                                        name="gender"
+                                        class="form-select p-3"
+                                        required
+                                    >
+
+                                        <option value="">
+
+                                            -- Pilih --
+
+                                        </option>
+
+                                        <option value="Laki-laki">
+
+                                            Laki-laki
+
+                                        </option>
+
+                                        <option value="Perempuan">
+
+                                            Perempuan
+
+                                        </option>
+
+                                    </select>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <button
+                            type="submit"
+                            class="primary-btn w-100 mt-3"
+                        >
+
+                            Mulai Tes Sekarang
+
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+<script>
+
+document
+.getElementById('startForm')
+
+.addEventListener('submit', function(e) {
+
+    e.preventDefault();
+
+    const formData = new FormData(this);
+
+    sessionStorage.setItem(
+        'name',
+        formData.get('name')
+    );
+
+    sessionStorage.setItem(
+        'student_class',
+        formData.get('student_class')
+    );
+
+    sessionStorage.setItem(
+        'gender',
+        formData.get('gender')
+    );
+
+    document
+    .getElementById('quiz-section')
+    .style.display = 'block';
+
+    document
+    .getElementById('quiz-section')
+    .scrollIntoView({
+
+        behavior: 'smooth'
+
+    });
+
+});
+
+</script>
+
+</section>

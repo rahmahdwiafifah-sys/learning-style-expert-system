@@ -2,34 +2,18 @@
 
 {% block content %}
 
-<div class="quiz-card shadow p-5 text-center">
+{% include 'sections/hero.html' %}
 
-    <h1 class="display-5 fw-bold mb-4">
+{% include 'sections/start_test.html' %}
 
-        Sistem Pakar
-        Gaya Belajar Siswa
+{% include 'sections/quiz_section.html' %}
 
-    </h1>
+{% include 'sections/result_section.html' %}
 
-    <p class="lead text-muted">
+{% include 'sections/about_section.html' %}
 
-        Kenali gaya belajar dominanmu
-        dan dapatkan rekomendasi belajar
-        terbaik untuk siswa, guru,
-        dan orang tua.
+{% include 'sections/team_section.html' %}
 
-    </p>
-
-    <a href="/start">
-
-        <button class="btn btn-primary btn-lg mt-4 px-5">
-
-            Mulai Tes
-
-        </button>
-
-    </a>
-
-</div>
+{% include 'sections/footer.html' %}
 
 {% endblock %}

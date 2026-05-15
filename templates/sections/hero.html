@@ -1,0 +1,208 @@
+<section
+    id="home"
+    class="section-spacing position-relative"
+>
+
+    <div class="hero-blob blob-1"></div>
+
+    <div class="hero-blob blob-2"></div>
+
+    <div
+        class="row align-items-center gy-5"
+    >
+
+        <!-- LEFT -->
+
+        <div class="col-lg-6 hero-mobile-center">
+
+            <div
+                class="badge rounded-pill mb-4 px-4 py-3"
+                style="
+                    background:#eef1ff;
+                    color:#576A8F;
+                "
+            >
+
+                Sistem Pakar Identifikasi Gaya Belajar
+
+            </div>
+
+            <h1 class="hero-title">
+
+                Kenali Cara
+                Belajarmu,
+                Raih
+
+                <span class="hero-highlight">
+
+                    Potensimu!
+
+                </span>
+
+            </h1>
+
+            <p class="hero-subtitle">
+
+                Temukan gaya belajar dominanmu
+                dan dapatkan rekomendasi terbaik
+                untuk meningkatkan pemahaman,
+                prestasi, dan semangat belajar.
+
+            </p>
+
+            <div class="mt-5">
+
+                <a href="#start-test">
+
+                    <button class="primary-btn">
+
+                        Mulai Tes
+
+                    </button>
+
+                </a>
+
+            </div>
+
+            <!-- MINI STATS -->
+
+            <div class="row mt-5">
+
+                <div class="col-6">
+
+                    <div
+                        class="analytics-card text-center"
+                        style="padding:18px;"
+                    >
+
+                        <h2 style="color:#576A8F;">
+
+                            500+
+
+                        </h2>
+
+                        <p class="mb-0 text-muted">
+
+                            Siswa Telah Mencoba
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="col-6">
+
+                    <div class="analytics-card text-center">
+
+                        <h2 style="color:#FF7444;">
+
+                            3
+
+                        </h2>
+
+                        <p class="mb-0 text-muted">
+
+                            Gaya Belajar
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- RIGHT -->
+
+        <div class="col-lg-6">
+
+            <div
+                class="analytics-card mx-auto"
+                style="
+                    max-width:500px;
+                "
+            >
+
+                <h5 class="fw-bold mb-4">
+
+                    Statistik Gaya Belajar
+
+                </h5>
+
+                <div
+                    style="
+                        max-width:320px;
+                        margin:auto;
+                    "
+                >
+
+                    <canvas id="heroChart"></canvas>
+
+                </div>
+
+                <div
+                    class="mt-4 p-3 rounded-4"
+                    style="background:#FFF8DE;"
+                >
+
+                    <strong style="color:#576A8F;">
+
+                        Insight:
+
+                    </strong>
+
+                    Mayoritas siswa lebih mudah
+                    memahami informasi melalui
+                    visualisasi dan praktik.
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<script>
+
+const heroCtx =
+document.getElementById('heroChart');
+
+new Chart(heroCtx, {
+
+    type: 'doughnut',
+
+    data: {
+
+        labels: [
+            'Visual',
+            'Auditori',
+            'Kinestetik'
+        ],
+
+        datasets: [{
+
+            data: [46, 28, 26],
+
+            backgroundColor: [
+
+                '#576A8F',
+
+                '#B7BDF7',
+
+                '#FF7444'
+
+            ]
+
+        }]
+
+    }
+
+});
+
+</script>

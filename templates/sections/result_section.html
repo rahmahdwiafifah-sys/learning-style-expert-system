@@ -1,0 +1,221 @@
+<section
+    id="result-section"
+    class="section-spacing"
+    style="display:none;"
+>
+
+    <div class="quiz-card p-5">
+
+        <div class="text-center mb-5">
+
+            <h1
+                class="fw-bold"
+                style="color:#576A8F;"
+            >
+
+                Hasil Gaya Belajar
+
+            </h1>
+
+            <p class="text-muted">
+
+                Berikut hasil identifikasi
+                gaya belajar kamu.
+
+            </p>
+
+        </div>
+
+        <!-- IDENTITAS -->
+
+        <div class="analytics-card mb-4">
+
+            <h4 class="fw-bold mb-4">
+
+                Identitas Siswa
+
+            </h4>
+
+            <div class="row">
+
+                <div class="col-md-4">
+
+                    <p>
+
+                        <strong>Nama:</strong>
+
+                        <span id="resultName"></span>
+
+                    </p>
+
+                </div>
+
+                <div class="col-md-4">
+
+                    <p>
+
+                        <strong>Kelas:</strong>
+
+                        <span id="resultClass"></span>
+
+                    </p>
+
+                </div>
+
+                <div class="col-md-4">
+
+                    <p>
+
+                        <strong>Gender:</strong>
+
+                        <span id="resultGender"></span>
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- DOMINANT -->
+
+        <div
+            class="analytics-card mb-4 text-center"
+            style="background:#FFF8DE;"
+        >
+
+            <h2
+                class="fw-bold"
+                style="color:#FF7444;"
+            >
+
+                Dominan:
+                <span id="dominantResult"></span>
+
+            </h2>
+
+        </div>
+
+        <!-- CHART -->
+
+        <div class="analytics-card mb-4">
+
+            <h4 class="fw-bold mb-4">
+
+                Diagram Gaya Belajar
+
+            </h4>
+
+            <canvas id="resultChart"></canvas>
+
+        </div>
+
+        <!-- ACCORDION -->
+
+        <div class="accordion" id="resultAccordion">
+
+            <!-- SISWA -->
+
+            <div class="accordion-item mb-3 border-0">
+
+                <h2 class="accordion-header">
+
+                    <button
+                        class="accordion-button"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#studentRec"
+                    >
+
+                        Rekomendasi untuk Siswa
+
+                    </button>
+
+                </h2>
+
+                <div
+                    id="studentRec"
+                    class="accordion-collapse collapse show"
+                >
+
+                    <div
+                        class="accordion-body"
+                        id="studentRecommendations"
+                    ></div>
+
+                </div>
+
+            </div>
+
+            <!-- GURU -->
+
+            <div class="accordion-item mb-3 border-0">
+
+                <h2 class="accordion-header">
+
+                    <button
+                        class="accordion-button collapsed"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#teacherRec"
+                    >
+
+                        Rekomendasi untuk Guru
+
+                    </button>
+
+                </h2>
+
+                <div
+                    id="teacherRec"
+                    class="accordion-collapse collapse"
+                >
+
+                    <div
+                        class="accordion-body"
+                        id="teacherRecommendations"
+                    ></div>
+
+                </div>
+
+            </div>
+
+            <!-- PARENT -->
+
+            <div class="accordion-item border-0">
+
+                <h2 class="accordion-header">
+
+                    <button
+                        class="accordion-button collapsed"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#parentRec"
+                    >
+
+                        Rekomendasi untuk Orang Tua
+
+                    </button>
+
+                </h2>
+
+                <div
+                    id="parentRec"
+                    class="accordion-collapse collapse"
+                >
+
+                    <div
+                        class="accordion-body"
+                        id="parentRecommendations"
+                    ></div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>

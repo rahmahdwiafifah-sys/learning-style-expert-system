@@ -1,0 +1,396 @@
+<section
+    id="quiz-section"
+    class="section-spacing"
+    style="display:none;"
+>
+
+    <div class="quiz-card p-5">
+
+        <!-- HEADER -->
+
+        <div class="d-flex justify-content-between mb-4">
+
+            <h4
+                class="fw-bold"
+                style="color:#576A8F;"
+            >
+
+                Tes Gaya Belajar
+
+            </h4>
+
+            <h5 id="questionCounter">
+
+                1/{{ questions|length }}
+
+            </h5>
+
+        </div>
+
+        <!-- PROGRESS -->
+
+        <div class="progress mb-5">
+
+            <div
+                id="progressBar"
+                class="progress-bar"
+                style="
+                    width:0%;
+                    background:#FF7444;
+                "
+            ></div>
+
+        </div>
+
+        <!-- FORM -->
+
+        <form
+            id="quizForm"
+            action="/result"
+            method="POST"
+        >
+
+            {% for q in questions %}
+
+            <div
+                class="question-slide"
+
+                {% if loop.index != 1 %}
+                    style="display:none;"
+                {% endif %}
+            >
+
+                <!-- QUESTION -->
+
+                <div class="text-center mb-5">
+
+                    <h2
+                        class="fw-bold"
+                        style="
+                            color:#576A8F;
+                            line-height:1.5;
+                        "
+                    >
+
+                        {{ q.question }}
+
+                    </h2>
+
+                </div>
+
+                <!-- OPTIONS -->
+
+                <div class="d-grid gap-4">
+
+                    {% for option in q.options %}
+
+                    <button
+
+                        type="button"
+
+                        class="answer-btn shadow-sm"
+
+                        onclick="selectAnswer(
+                            '{{ q.id }}',
+                            '{{ option.type }}'
+                        )"
+                    >
+
+                        {{ option.text }}
+
+                    </button>
+
+                    {% endfor %}
+
+                </div>
+
+                <!-- HIDDEN -->
+
+                <input
+                    type="hidden"
+                    name="{{ q.id }}"
+                    id="answer{{ q.id }}"
+                >
+
+            </div>
+
+            {% endfor %}
+
+        </form>
+
+    </div>
+
+</section>
+
+<script>
+
+const slides =
+document.querySelectorAll('.question-slide');
+
+let current = 0;
+
+function updateProgress() {
+
+    const progress =
+    ((current + 1) / slides.length) * 100;
+
+    document
+    .getElementById('progressBar')
+    .style.width = progress + '%';
+
+    document
+    .getElementById('questionCounter')
+    .innerText =
+    `${current + 1}/${slides.length}`;
+
+}
+
+updateProgress();
+
+function selectAnswer(questionId, value) {
+
+    document
+    .getElementById(
+        'answer' + questionId
+    ).value = value;
+
+    slides[current].style.display = 'none';
+
+    current++;
+
+    if(current < slides.length) {
+
+        slides[current].style.display = 'block';
+
+        updateProgress();
+
+    }
+
+    else {
+
+        // append identity
+
+        const form =
+        document.getElementById('quizForm');
+
+        const nameInput =
+        document.createElement('input');
+
+        nameInput.type = 'hidden';
+
+        nameInput.name = 'name';
+
+        nameInput.value =
+        sessionStorage.getItem('name');
+
+        form.appendChild(nameInput);
+
+        const classInput =
+        document.createElement('input');
+
+        classInput.type = 'hidden';
+
+        classInput.name = 'student_class';
+
+        classInput.value =
+        sessionStorage.getItem('student_class');
+
+        form.appendChild(classInput);
+
+        const genderInput =
+        document.createElement('input');
+
+        genderInput.type = 'hidden';
+
+        genderInput.name = 'gender';
+
+        genderInput.value =
+        sessionStorage.getItem('gender');
+
+        form.appendChild(genderInput);
+
+        submitQuiz();
+
+    }
+
+}
+
+async function submitQuiz() {
+
+    const answers = {};
+
+    slides.forEach(slide => {
+
+        const input =
+        slide.querySelector('input');
+
+        answers[input.name] =
+        input.value;
+
+    });
+
+    answers['name'] =
+    sessionStorage.getItem('name');
+
+    answers['student_class'] =
+    sessionStorage.getItem(
+        'student_class'
+    );
+
+    answers['gender'] =
+    sessionStorage.getItem('gender');
+
+    const response = await fetch(
+        '/submit_quiz',
+        {
+
+            method: 'POST',
+
+            headers: {
+
+                'Content-Type':
+                'application/json'
+
+            },
+
+            body: JSON.stringify(answers)
+
+        }
+    );
+
+    const data =
+    await response.json();
+
+    showResult(data);
+
+}
+
+function showResult(data) {
+
+    document
+    .getElementById('result-section')
+    .style.display = 'block';
+
+    document
+    .getElementById('resultName')
+    .innerText = data.name;
+
+    document
+    .getElementById('resultClass')
+    .innerText =
+    data.student_class;
+
+    document
+    .getElementById('resultGender')
+    .innerText =
+    data.gender;
+
+    document
+    .getElementById('dominantResult')
+    .innerText =
+    data.dominant;
+
+    // recommendations
+
+    renderRecommendations(
+
+        'studentRecommendations',
+
+        data.recommendations.student
+
+    );
+
+    renderRecommendations(
+
+        'teacherRecommendations',
+
+        data.recommendations.teacher
+
+    );
+
+    renderRecommendations(
+
+        'parentRecommendations',
+
+        data.recommendations.parent
+
+    );
+
+    // chart
+
+    const ctx =
+    document.getElementById(
+        'resultChart'
+    );
+
+    new Chart(ctx, {
+
+        type: 'radar',
+
+        data: {
+
+            labels: [
+
+                'Visual',
+                'Auditori',
+                'Kinestetik'
+
+            ],
+
+            datasets: [{
+
+                label: 'Persentase',
+
+                data: [
+
+                    data.percentages.visual,
+
+                    data.percentages.auditory,
+
+                    data.percentages.kinesthetic
+
+                ],
+
+                backgroundColor:
+                'rgba(87,106,143,0.2)',
+
+                borderColor:
+                '#576A8F'
+
+            }]
+
+        }
+
+    });
+
+    // scroll
+
+    document
+    .getElementById('result-section')
+    .scrollIntoView({
+
+        behavior: 'smooth'
+
+    });
+
+}
+
+function renderRecommendations(id, items) {
+
+    let html = '<ul>';
+
+    items.forEach(item => {
+
+        html += `<li>${item}</li>`;
+
+    });
+
+    html += '</ul>';
+
+    document
+    .getElementById(id)
+    .innerHTML = html;
+
+}
+
+</script>
